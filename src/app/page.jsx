@@ -1,6 +1,12 @@
 import LinkButton from "./_components/LinkButton";
+import { getPost } from "./actions";
 
-export default function Home() {
+
+const Home = async () => {
+
+const posts = await getPost();
+console.log('am I being re rendered');
+
   return (
     <>
       <div className="flex flex-col h-full">
@@ -11,11 +17,13 @@ export default function Home() {
       <div id="2" className="flex flex-col h-full min-w-96">
         <LinkButton btnText={'create Diary Entry'} href={'/create-entry'} />
         <ul className="pt-6 space-y-6">
-          <li>this is where an entry goes</li>
-          <li>this is where an entry goes</li>
-          <li>this is where an entry goes</li>
+          {posts.map((item,index) => (
+            <li key={index}>{item.body}</li>
+          ))}
         </ul>
       </div>
     </>
-  );
+  )
 }
+
+export default Home;
