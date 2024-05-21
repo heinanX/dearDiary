@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getMonth, getFullYear, getDate, addMonths, subMonths } from "date-fns";
+import { format, addMonths, subMonths } from "date-fns";
 import CalendarDays from "./CalendarDays";
 const weekdaysShort = ["S", "M", "T", "W", "T", "F", "S"];
 const months = [
@@ -19,20 +19,17 @@ const months = [
 ];
 
 const Calendar = () => {
-  
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState(Date.now());
   const [showOverview, setShowOverview] = useState(false);
 
   const changeCurrentMonth = (action) => {
     setLoading(true);
-    let newDate;
     if (action === "next") {
-      newDate = addMonths(date, 1);
+      setDate(addMonths(date, 1));
     } else {
-      newDate = subMonths(date, 1);
+      setDate(subMonths(date, 1));
     }
-    setDate(newDate);
     setLoading(false);
   };
 
@@ -52,7 +49,9 @@ const Calendar = () => {
         ) : (
           <>
             {showOverview ? (
-              <button onClick={() => setShowOverview(!showOverview)}>go back</button>
+              <button onClick={() => setShowOverview(!showOverview)}>
+                go back
+              </button>
             ) : (
               <>
                 <div
@@ -69,7 +68,7 @@ const Calendar = () => {
                     className="p-2 text-3xl hover:cursor-pointer"
                     onClick={changeCurrentYear}
                   >
-                    this is month
+                    {format(date, 'MMMM')}
                   </h1>
                   <button
                     className="1/5"
@@ -88,7 +87,7 @@ const Calendar = () => {
                     ))}
                   </div>
                 </div>
-                    <CalendarDays date={date} />
+                <CalendarDays date={date} />
               </>
             )}
           </>
