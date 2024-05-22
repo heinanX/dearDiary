@@ -1,12 +1,21 @@
-import { getMonth, getDaysInMonth } from "date-fns";
+import { getDaysInMonth, startOfMonth, endOfMonth, getDay, subMonths, addMonths, format } from "date-fns";
 
 const CalendarDays = ({date}) => {
-    const totalOfDaysCurrentMonth = getDaysInMonth(date)
-    const totalDays = [];
+    const startDate = startOfMonth(date)
+    const endDate = endOfMonth(date)
+    const prevMonth = subMonths(endDate, 1)
+    const nextMonth = addMonths(startDate, 1)
 
-const renderDays = () => {
+    const totalDays = [];
+    console.log("prev", prevMonth);
+    console.log("prev", nextMonth);
+
+    const renderDays = () => {
+        if (getDay(startDate) != 0) {
+            console.log('this is not the day');
+        }
     for (let i = 1; i < getDaysInMonth(date) + 1; i++) {
-    console.log(i);
+    //console.log(i);
         totalDays.push(i)
     }
     return totalDays
