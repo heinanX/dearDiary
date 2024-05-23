@@ -20,7 +20,7 @@ const months = [
 
 const Calendar = () => {
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(Date.now());
+  const [date, setDate] = useState(format(Date.now(), "yyyy-MM-dd"));
   const [showOverview, setShowOverview] = useState(false);
 
   const changeCurrentMonth = (action) => {
@@ -64,12 +64,17 @@ const Calendar = () => {
                   >
                     {"<"}
                   </button>
+                  <div className="text-center ">
                   <h1
                     className="p-2 text-3xl hover:cursor-pointer"
                     onClick={changeCurrentYear}
                   >
                     {format(date, 'MMMM')}
                   </h1>
+                    <p className="text-xs">
+                    {format(date, 'yyyy')}
+                    </p>
+                  </div>
                   <button
                     className="1/5"
                     onClick={() => changeCurrentMonth("next")}
@@ -87,7 +92,7 @@ const Calendar = () => {
                     ))}
                   </div>
                 </div>
-                <CalendarDays date={date} />
+                <CalendarDays date={date} setDate={setDate} />
               </>
             )}
           </>

@@ -8,38 +8,50 @@ import {
   addDays,
 } from "date-fns";
 
-const CalendarDays = ({ date }) => {
+const CalendarDays = ({ date, setDate }) => {
   const startDate = startOfMonth(date);
   const endDate = endOfMonth(date);
   const totalDays = [];
 
   const renderDays = () => {
-    const numberOfDaysIntoAMonth = getDay(startDate)
-    const totalDaysInMonthView = numberOfDaysIntoAMonth + getDaysInMonth(date) + 7 - getDay(endDate);
-    let days = subDays(startDate, numberOfDaysIntoAMonth + 1)
+    const startDateIndex = getDay(startDate);
+    const endDateIndex = getDay(endDate);
+    const totalDaysInMonthView =
+      startDateIndex + getDaysInMonth(date) + 7 - endDateIndex;
+    let day = subDays(startDate, startDateIndex + 1);
 
     for (let i = 1; i < totalDaysInMonthView; i++) {
-      days = format(addDays(days, 1), "yyyy-MM-dd")
+      day = format(addDays(day, 1), "yyyy-MM-dd");
       totalDays.push({
-        day: days,
-        currentDay: days === format(date, "yyyy-MM-dd") ? true : false,
-        currentMonth: format(days, "MM") === format(date, "MM") ? true : false
+        day: day,
+        activeDay: day === format(date, "yyyy-MM-dd") ? true : false,
+        currentDay: day === format(Date.now(), "yyyy-MM-dd") ? true : false,
+        currentMonth: format(day, "MM") === format(date, "MM") ? true : false,
       });
     }
-    console.log(totalDays);
+    // console.log(totalDays);
     return totalDays;
   };
 
   renderDays();
+
+  const handleDayChange = (day) => {
+    setDate(day)
+    console.log(day);
+  }
+
   return (
     <div className="grid grid-cols-7 text-center weekday">
       {totalDays.map((day, i) => (
         <button
-        key={i}
-        className={`aspect-square hover:text-green-700
+          key={i}
+          onClick={() => handleDayChange(day.day)}
+          className={`aspect-square
         ${day.currentMonth ? null : "text-gray-400"}
-        ${day.currentDay ? "text-orange-400" : null}
-        `}>
+        ${day.activeDay ? "text-orange-400" : null}
+        ${day.currentDay ? "bg-orange-400/50 rounded-full hover:bg-orange-400" : "hover:text-orange-400"}
+        `}
+        >
           {format(day.day, "d")}
         </button>
       ))}
