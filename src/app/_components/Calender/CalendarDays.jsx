@@ -29,16 +29,15 @@ const CalendarDays = ({ date, setDate }) => {
         currentMonth: format(day, "MM") === format(date, "MM") ? true : false,
       });
     }
-    // console.log(totalDays);
     return totalDays;
   };
 
   renderDays();
 
   const handleDayChange = (day) => {
-    setDate(day)
+    setDate(day);
     console.log(day);
-  }
+  };
 
   return (
     <div className="grid grid-cols-7 text-center weekday">
@@ -48,8 +47,8 @@ const CalendarDays = ({ date, setDate }) => {
           onClick={() => handleDayChange(day.day)}
           className={`aspect-square
         ${day.currentMonth ? null : "text-gray-400"}
-        ${day.activeDay ? "text-orange-400" : null}
-        ${day.currentDay ? "bg-orange-400/50 rounded-full hover:bg-orange-400" : "hover:text-orange-400"}
+        ${day.activeDay ? "rounded-full bg-orange-400/80" : null}
+        ${day.currentDay ? (!day.activeDay ? "text-cyan-500" : null) : null}
         `}
         >
           {format(day.day, "d")}

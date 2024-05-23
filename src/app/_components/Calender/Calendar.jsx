@@ -1,7 +1,9 @@
 "use client";
 import { useState } from "react";
-import { format, addMonths, subMonths } from "date-fns";
+import { format } from "date-fns";
 import CalendarDays from "./CalendarDays";
+import CalendarHeader from "./CalendarHeader";
+import MonthViewHandler from "./MonthViewHandler";
 const weekdaysShort = ["S", "M", "T", "W", "T", "F", "S"];
 const months = [
   "January",
@@ -23,75 +25,55 @@ const Calendar = () => {
   const [date, setDate] = useState(format(Date.now(), "yyyy-MM-dd"));
   const [showOverview, setShowOverview] = useState(false);
 
-  const changeCurrentMonth = (action) => {
+  const handleHeaderEvent = (action, func) => {
     setLoading(true);
-    if (action === "next") {
-      setDate(addMonths(date, 1));
-    } else {
-      setDate(subMonths(date, 1));
+    if (action === "m") { // m = month
+      const changeMonth = func;
+      setDate(changeMonth);
+    }
+    if (action === "y") { // y = year
+      const changeYear = func;
+      setDate(changeYear);
     }
     setLoading(false);
-  };
-
-  const changeCurrentYear = () => {
-    setShowOverview(true);
-    console.log(showOverview);
+    setShowOverview(false);
   };
 
   return (
-    <div id="container" className="w-full">
+    <div id="container" className="w-full bg-slate-50/35">
       <div
         id="Calendar-Container"
         className="flex flex-col w-full p-5 text-gray-200 rounded-md bg-primaryBgLight/80"
       >
         {loading ? (
-          <></>
+          <></> // TODO: Add a loader here in the future
         ) : (
           <>
             {showOverview ? (
-              <button onClick={() => setShowOverview(!showOverview)}>
-                go back
-              </button>
+              <>
+                <MonthViewHandler
+                  date={date}
+                  months={months}
+                  setShowOverview={setShowOverview}
+                  handleHeaderEvent={handleHeaderEvent}
+                />
+              </>
             ) : (
               <>
-                <div
-                  id="Calendar-Header"
-                  className="flex flex-row justify-between w-full px-10 py-4 text-4xl"
-                >
-                  <button
-                    className="1/5"
-                    onClick={() => changeCurrentMonth("prev")}
-                  >
-                    {"<"}
-                  </button>
-                  <div className="text-center ">
-                  <h1
-                    className="p-2 text-3xl hover:cursor-pointer"
-                    onClick={changeCurrentYear}
-                  >
-                    {format(date, 'MMMM')}
-                  </h1>
-                    <p className="text-xs">
-                    {format(date, 'yyyy')}
+                <CalendarHeader
+                  date={date}
+                  handleHeaderEvent={handleHeaderEvent}
+                  setShowOverview={setShowOverview}
+                />
+
+                <div className="grid grid-cols-7 py-2 text-center weekday">
+                  {weekdaysShort.map((weekday, index) => (
+                    <p key={index} className="p-2">
+                      {weekday}
                     </p>
-                  </div>
-                  <button
-                    className="1/5"
-                    onClick={() => changeCurrentMonth("next")}
-                  >
-                    {">"}
-                  </button>
+                  ))}
                 </div>
 
-                <div className="table-header">
-                  <div className="grid grid-cols-7 py-2 text-center weekday">
-                    {weekdaysShort.map((weekday, index) => (
-                      <p key={index} className="p-2">
-                        {weekday}
-                      </p>
-                    ))}
-                  </div>
-                </div>
                 <CalendarDays date={date} setDate={setDate} />
               </>
             )}
