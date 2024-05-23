@@ -1,34 +1,50 @@
-import { getDaysInMonth, startOfMonth, endOfMonth, getDay, subMonths, addMonths, format } from "date-fns";
+import {
+  getDaysInMonth,
+  startOfMonth,
+  endOfMonth,
+  getDay,
+  subDays,
+  format,
+  addDays,
+} from "date-fns";
 
-const CalendarDays = ({date}) => {
-    const startDate = startOfMonth(date)
-    const endDate = endOfMonth(date)
-    const prevMonth = subMonths(endDate, 1)
-    const nextMonth = addMonths(startDate, 1)
+const CalendarDays = ({ date }) => {
+  const startDate = startOfMonth(date);
+  const endDate = endOfMonth(date);
+  const totalDays = [];
 
-    const totalDays = [];
-    console.log("prev", prevMonth);
-    console.log("prev", nextMonth);
+  const renderDays = () => {
+    const numberOfDaysIntoAMonth = getDay(startDate)
+    const totalDaysInMonthView = numberOfDaysIntoAMonth + getDaysInMonth(date) + 7 - getDay(endDate);
+    let days = subDays(startDate, numberOfDaysIntoAMonth + 1)
 
-    const renderDays = () => {
-        if (getDay(startDate) != 0) {
-            console.log('this is not the day');
-        }
-    for (let i = 1; i < getDaysInMonth(date) + 1; i++) {
-    //console.log(i);
-        totalDays.push(i)
+    for (let i = 1; i < totalDaysInMonthView; i++) {
+      days = format(addDays(days, 1), "yyyy-MM-dd")
+      totalDays.push({
+        day: days,
+        currentDay: days === format(date, "yyyy-MM-dd") ? true : false,
+        currentMonth: format(days, "MM") === format(date, "MM") ? true : false
+      });
     }
-    return totalDays
-}
+    console.log(totalDays);
+    return totalDays;
+  };
 
-renderDays()
+  renderDays();
   return (
     <div className="grid grid-cols-7 text-center weekday">
-        {totalDays.map((item, i) => (
-            <button key={i} className="aspect-square hover:text-green-700">{i +1}</button>
-        ))}
+      {totalDays.map((day, i) => (
+        <button
+        key={i}
+        className={`aspect-square hover:text-green-700
+        ${day.currentMonth ? null : "text-gray-400"}
+        ${day.currentDay ? "text-orange-400" : null}
+        `}>
+          {format(day.day, "d")}
+        </button>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default CalendarDays
+export default CalendarDays;
