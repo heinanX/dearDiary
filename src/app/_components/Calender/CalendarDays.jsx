@@ -34,9 +34,8 @@ const CalendarDays = ({ date, setDate }) => {
 
   renderDays();
 
-  const handleDayChange = (day) => {
+  const dayHandler = (day) => {
     setDate(day);
-    console.log(day);
   };
 
   return (
@@ -44,7 +43,7 @@ const CalendarDays = ({ date, setDate }) => {
       {totalDays.map((day, i) => (
         <button
           key={i}
-          onClick={() => handleDayChange(day.day)}
+          onClick={() => dayHandler(day.day)}
           className={`aspect-square
         ${day.currentMonth ? null : "text-gray-400"}
         ${day.activeDay ? "rounded-full bg-orange-400/80" : null}

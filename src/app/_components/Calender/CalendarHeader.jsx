@@ -1,17 +1,20 @@
 import { format, subMonths, addMonths } from "date-fns";
+import DateToggleBtn from "./DateToggleBtn";
+import { IoIosArrowBack } from "react-icons/io";
 
-const CalendarHeader = ({ date, setShowOverview, handleHeaderEvent }) => {
+const CalendarHeader = ({ date, setShowOverview, dateHandler }) => {
   return (
     <div
       id="Calendar-Header"
       className="flex flex-row justify-between w-full px-6 py-4 text-4xl"
     >
-      <button
+      {/* <button
         className="hover:text-orange-400"
-        onClick={() => handleHeaderEvent("m", subMonths(date, 1))}
+        onClick={() => dateHandler("m", subMonths(date, 1))}
       >
         {"<"}
-      </button>
+      </button> */}
+      <DateToggleBtn onClick={() => dateHandler("m", subMonths(date, 1))} icon={<IoIosArrowBack />} />
       <button
         className="text-center hover:text-orange-400"
         onClick={() => setShowOverview(true)}
@@ -23,7 +26,7 @@ const CalendarHeader = ({ date, setShowOverview, handleHeaderEvent }) => {
       </button>
       <button
         className="hover:text-orange-400"
-        onClick={() => handleHeaderEvent("m", addMonths(date, 1))}
+        onClick={() => dateHandler("m", addMonths(date, 1))}
       >
         {">"}
       </button>

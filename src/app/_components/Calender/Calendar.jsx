@@ -25,7 +25,7 @@ const Calendar = () => {
   const [date, setDate] = useState(format(Date.now(), "yyyy-MM-dd"));
   const [showOverview, setShowOverview] = useState(false);
 
-  const handleHeaderEvent = (action, func) => {
+  const dateHandler = (action, func) => {
     setLoading(true);
     if (action === "m") { // m = month
       const changeMonth = func;
@@ -55,14 +55,14 @@ const Calendar = () => {
                   date={date}
                   months={months}
                   setShowOverview={setShowOverview}
-                  handleHeaderEvent={handleHeaderEvent}
+                  dateHandler={dateHandler}
                 />
               </>
             ) : (
               <>
                 <CalendarHeader
                   date={date}
-                  handleHeaderEvent={handleHeaderEvent}
+                  dateHandler={dateHandler}
                   setShowOverview={setShowOverview}
                 />
 
