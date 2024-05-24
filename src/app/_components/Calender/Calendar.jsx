@@ -40,7 +40,7 @@ const Calendar = () => {
   };
 
   return (
-    <div id="container" className="w-full bg-slate-50/35">
+    <div id="container" className="w-full bg-lightPurple">
       <div
         id="Calendar-Container"
         className="flex flex-col w-full p-5 text-gray-200 rounded-md bg-primaryBgLight/80"

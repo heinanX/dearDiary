@@ -24,6 +24,17 @@ export async function createPost(
 export async function getPost(
 ) {
     const posts = await prisma.post.findMany({
+        orderBy: {
+            id:'desc'
+        }
+    })
+    revalidatePath("/");
+    console.log('new posts',posts);
+    return posts;
+}
+export async function getRecentPost(
+) {
+    const posts = await prisma.post.findMany({
         take:3,
         orderBy: {
             id:'desc'

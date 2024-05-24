@@ -46,8 +46,8 @@ const CalendarDays = ({ date, setDate }) => {
           onClick={() => dayHandler(day.day)}
           className={`aspect-square
         ${day.currentMonth ? null : "text-gray-400"}
-        ${day.activeDay ? "rounded-full bg-orange-400/80" : null}
-        ${day.currentDay ? (!day.activeDay ? "text-cyan-500" : null) : null}
+        ${day.activeDay ? "rounded-full bg-gradient-to-b from-apricot to-peachy text-purple" : null}
+        ${day.currentDay ? (!day.activeDay ? "text-peachy" : null) : null}
         `}
         >
           {format(day.day, "d")}
