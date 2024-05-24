@@ -20,18 +20,19 @@ const months = [
   "December",
 ];
 
-const Calendar = () => {
+const Calendar = ({ date, setDate, posts }) => {
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(format(Date.now(), "yyyy-MM-dd"));
   const [showOverview, setShowOverview] = useState(false);
 
   const dateHandler = (action, func) => {
     setLoading(true);
-    if (action === "m") { // m = month
+    if (action === "m") {
+      // m = month
       const changeMonth = func;
       setDate(changeMonth);
     }
-    if (action === "y") { // y = year
+    if (action === "y") {
+      // y = year
       const changeYear = func;
       setDate(changeYear);
     }
@@ -74,7 +75,7 @@ const Calendar = () => {
                   ))}
                 </div>
 
-                <CalendarDays date={date} setDate={setDate} />
+                <CalendarDays date={date} setDate={setDate} posts={posts} />
               </>
             )}
           </>

@@ -8,7 +8,7 @@ import {
   addDays,
 } from "date-fns";
 
-const CalendarDays = ({ date, setDate }) => {
+const CalendarDays = ({ date, setDate, posts }) => {
   const startDate = startOfMonth(date);
   const endDate = endOfMonth(date);
   const totalDays = [];
