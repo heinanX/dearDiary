@@ -1,6 +1,9 @@
-import React from 'react'
+import { getPostByID } from "@/actions";
 
-const page = () => {
+//Todo: Create page for displaying created post
+const page = async ({params}) => {
+    const post = await getPostByID(params.id);
+   console.log(post);
   return (
     <div>page</div>
   )

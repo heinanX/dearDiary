@@ -15,7 +15,7 @@ export async function createPost(
             }
         })
         revalidatePath("/");
-        return { status: "success", message: `Added entry ${post.id}`, id: post.id};
+        return { status: "success", message: `Added entry ${post.id}`, id: post.id };
     } catch (error) {
         return { status: "failed", message: `failed to add diary entry` };
     }
@@ -25,36 +25,33 @@ export async function getPosts(
 ) {
     const posts = await prisma.post.findMany({
         orderBy: {
-            id:'desc'
+            id: 'desc'
         }
     })
     revalidatePath("/");
-    console.log('new posts',posts);
     return posts;
 }
 
-export const getPost = async(
-) => {
-    const posts = await prisma.post.find({
-        orderBy: {
-            id:'desc'
+export const getPostByID = async (postId) => {
+    const post = await prisma.post.findUnique({
+        where: {
+            id: postId
         }
     })
     revalidatePath("/create-entry/:id");
-    console.log('new posts',posts);
-    return posts;
+    return post;
 }
 
 export async function getRecentPost(
 ) {
     const posts = await prisma.post.findMany({
-        take:3,
+        take: 3,
         orderBy: {
-            id:'desc'
+            id: 'desc'
         }
     })
     revalidatePath("/");
-    console.log('new posts',posts);
+    console.log('new posts', posts);
     return posts;
 }
 
