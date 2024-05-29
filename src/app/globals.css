@@ -24,6 +24,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    display: flex;
+    justify-content: center;
 }
 
 @layer utilities {
@@ -48,4 +50,8 @@ body {
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #414141;          /* Color of the scrollbar thumb on hover */
+}
+
+h2 {
+  @apply text-2xl
 }

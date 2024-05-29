@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex flex-col items-center justify-center w-full h-full min-h-screen px-2 py-8 md:p-10 lg:p-24">
+        <main className="flex flex-col items-center justify-center w-full h-full min-h-screen px-2 py-8 md:p-10 lg:p-24 max-w-7xl">
           {children}
         </main>
       </body>

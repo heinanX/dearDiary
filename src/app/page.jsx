@@ -1,15 +1,15 @@
 import EntryViewer from "./_components/EntryViewer";
-import LinkButton from "./_components/LinkButton";
-import { getPost } from "./actions";
+import PrimaryButton from "./_components/PrimaryButton";
+import { getPosts } from "./actions";
 
 const Home = async () => {
-  const posts = await getPost();
+  const posts = await getPosts();
 
   return (
     <>
-    <div className="w-11/12">
-      <LinkButton btnText={"create new entry +"} href={"/create-entry"} />
-    </div>
+      <div className="w-11/12">
+        <PrimaryButton btnText={"create new entry +"} href={"/create-entry"} />
+      </div>
       <EntryViewer posts={posts} />
     </>
   );
