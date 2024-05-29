@@ -3,7 +3,7 @@ const SubmitButton = ({ btnText, pending }) => {
     <button
       type="submit"
       aria-disabled={pending}
-      className="w-full p-2 my-2 bg-orange-400 hover:bg-orange-500 hover:shadow-md"
+      className="w-full p-4 my-2 font-semibold rounded-full lg:p-2 hover:font-bold bg-gradient-to-bl from-peachy to-apricot text-purple hover:bg-gradient-to-br hover:shadow-md"
     >
       {btnText}
     </button>
