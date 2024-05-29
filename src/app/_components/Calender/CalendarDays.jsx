@@ -51,7 +51,7 @@ const CalendarDays = ({ date, setDate, posts }) => {
         <button
           key={i}
           onClick={() => dayHandler(day.day)}
-          className={`aspect-square flex flex-col items-center justify-center
+          className={`aspect-square flex flex-col items-center justify-center sm:gap-1
         ${day.currentMonth ? null : "text-gray-400"}
         ${
           day.activeDay

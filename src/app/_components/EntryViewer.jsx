@@ -11,9 +11,9 @@ const EntryViewer = ({ posts }) => {
 
     const noEntriesMsg = () => {
       let message;
-      if (date === format(Date.now(), "yyyy-MM-dd")) {
+      if (format(date,  "yyyy-MM-dd") === format(Date.now(), "yyyy-MM-dd")) {
         message = "Why don't you write about your day :3"
-      } else if (date < format(Date.now(), "yyyy-MM-dd")) {
+      } else if (format(date,  "yyyy-MM-dd") < format(Date.now(), "yyyy-MM-dd")) {
         message = "Sorry, no entries written this day :("
       } else {
         message = "Sorry, you can't write an entry just yet :)"
@@ -29,7 +29,7 @@ const EntryViewer = ({ posts }) => {
 
       <section
         id="2"
-        className="w-full lg:w-1/2 p-2 overflow-y-auto lg:max-h-[512px] scrollbar flex justify-center items-center"
+        className="w-full lg:w-1/2 p-2 overflow-y-auto lg:max-h-[512px] scrollbar"
       >
         {filteredPosts.length > 0 ? (
           <ul className="flex flex-col gap-2 pt-6 space-y-6">
@@ -46,7 +46,7 @@ const EntryViewer = ({ posts }) => {
             ))}
           </ul>
         ) : (
-          <p>{noEntriesMsg()}</p>
+          <p className="pt-16 pl-4">{noEntriesMsg()}</p>
         )}
       </section>
     </article>

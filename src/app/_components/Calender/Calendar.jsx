@@ -39,6 +39,7 @@ const Calendar = ({ date, setDate, posts }) => {
     setLoading(false);
     setShowOverview(false);
   };
+  console.log("inside calendar",date);
 
   return (
     <div id="container" className="w-full bg-lightPurple">
