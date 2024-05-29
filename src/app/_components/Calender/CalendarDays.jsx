@@ -32,6 +32,13 @@ const CalendarDays = ({ date, setDate, posts }) => {
     return totalDays;
   };
 
+  const tileContent = (day) => {
+    const postFound = posts.some(
+      (post) => format(post.date, "yyyy-MM-dd") === day
+    );
+    return postFound;
+  };
+
   renderDays();
 
   const dayHandler = (day) => {
@@ -44,13 +51,26 @@ const CalendarDays = ({ date, setDate, posts }) => {
         <button
           key={i}
           onClick={() => dayHandler(day.day)}
-          className={`aspect-square
+          className={`aspect-square flex flex-col items-center justify-center
         ${day.currentMonth ? null : "text-gray-400"}
-        ${day.activeDay ? "rounded-full bg-gradient-to-b from-apricot to-peachy text-purple" : null}
+        ${
+          day.activeDay
+            ? "rounded-full bg-gradient-to-b from-apricot to-peachy text-purple"
+            : null
+        }
         ${day.currentDay ? (!day.activeDay ? "text-peachy" : null) : null}
         `}
         >
-          {format(day.day, "d")}
+          <p>{format(day.day, "d")}</p>
+          <div
+            className={`w-1 h-1 rounded-full ${
+              tileContent(day.day)
+                ? day.activeDay
+                  ? "bg-purple"
+                  : "bg-apricot"
+                : null
+            }`}
+          ></div>
         </button>
       ))}
     </div>
