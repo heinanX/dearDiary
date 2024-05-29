@@ -9,10 +9,17 @@ const EntryViewer = ({ posts }) => {
     posts.filter((post) => isSameDay(format(post.date, "yyyy-MM-dd"), date)) ||
     [];
 
-  const noEntriesMessage =
-    date < format(Date.now(), "yyyy-MM-dd")
-      ? "Sorry, no entries written this day :("
-      : "Sorry, you can't write an entry just yet :)";
+    const noEntriesMsg = () => {
+      let message;
+      if (date === format(Date.now(), "yyyy-MM-dd")) {
+        message = "Why don't you write about your day :3"
+      } else if (date < format(Date.now(), "yyyy-MM-dd")) {
+        message = "Sorry, no entries written this day :("
+      } else {
+        message = "Sorry, you can't write an entry just yet :)"
+      }
+      return message;
+    }
 
   return (
     <article className="flex flex-col w-full lg:max-h-screen lg:flex-row">
@@ -39,7 +46,7 @@ const EntryViewer = ({ posts }) => {
             ))}
           </ul>
         ) : (
-          <p>{noEntriesMessage}</p>
+          <p>{noEntriesMsg()}</p>
         )}
       </section>
     </article>
